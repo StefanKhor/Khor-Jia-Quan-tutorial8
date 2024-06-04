@@ -3,10 +3,17 @@ package com.ebookfrenzy.roomdemo;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "products")
 public class Product {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "productID")
     private int id;
+    @ColumnInfo(name="productName")
+
     private String name;
     private int quantity;
 
@@ -14,7 +21,6 @@ public class Product {
         this.name = name;
         this.quantity = quantity;
     }
-
     public int getID(){
         return this.id;
     }
