@@ -12,6 +12,15 @@ public class Product {
     @NonNull
     @ColumnInfo(name = "productID")
     private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @ColumnInfo(name="productName")
 
     private String name;
@@ -21,9 +30,6 @@ public class Product {
         this.name = name;
         this.quantity = quantity;
     }
-    public int getID(){
-        return this.id;
-    }
 
     public String getName(){
         return this.name;
@@ -31,10 +37,6 @@ public class Product {
 
     public int getQuantity(){
         return this.quantity;
-    }
-
-    public void setID(int id){
-        this.id = id;
     }
 
     public void setName(String name){

@@ -14,6 +14,10 @@ import android.view.ViewGroup;
 import com.ebookfrenzy.roomdemo.Product;
 import com.ebookfrenzy.roomdemo.databinding.FragmentMainBinding;
 
+import java.util.List;
+import java.util.Locale;
+import androidx.lifecycle.Observer;
+
 public class MainFragment extends Fragment {
     private MainViewModel mViewModel;
     private FragmentMainBinding binding;
@@ -44,7 +48,7 @@ public class MainFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         listenerSetup();
         observerSetup();
-        recyclerSetup();
+//        recyclerSetup();
     }
 
     private void listenerSetup() {
@@ -83,5 +87,31 @@ public class MainFragment extends Fragment {
         binding.productID.setText("");
         binding.productName.setText("");
         binding.productQuantity.setText("");
+    }
+
+    private void observerSetup() {
+        mViewModel.getAllProducts().observe(getViewLifecycleOwner(),
+                new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<Product> products) {
+                        adapter.setProductList(products);
+                    }
+                });
+        mViewModel.getSearchResults().observe(getViewLifecycleOwner(),
+                new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<Product> products) {
+                        if (products.size() > 0) {
+                            binding.productID.setText(String.format(Locale.US, "%d",
+                                    products.get(0).getId()));
+                            binding.productName.setText(products.get(0).getName());
+                            binding.productQuantity.setText(String.format(Locale.US,
+                                    "%d",
+                                    products.get(0).getQuantity()));
+                        } else {
+                            binding.productID.setText("No Match");
+                        }
+                    }
+                });
     }
 }
