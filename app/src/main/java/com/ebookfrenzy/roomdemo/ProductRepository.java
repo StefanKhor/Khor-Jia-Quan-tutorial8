@@ -9,15 +9,20 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 public class ProductRepository {
+
     private final MutableLiveData<List<Product>> searchResults =
             new MutableLiveData<>();
     private List<Product> results;
+    private final LiveData<List<Product>> allproducts;
     private final ProductDao productDao;
     public ProductRepository(Application application) {
         ProductRoomDatabase db;
         db = ProductRoomDatabase.getDatabase(application);
         productDao = db.productDao();
+        allproducts = productDao.getAllProducts();
     }
 
     Handler handler = new Handler(Looper.getMainLooper()) {
@@ -47,5 +52,13 @@ public class ProductRepository {
             handler.sendEmptyMessage(0);
         });
         executor.shutdown();
+    }
+
+    public LiveData<List<Product>> getAllproducts(){
+        return allproducts;
+    }
+
+    public MutableLiveData<List<Product>> getSearchResults(){
+        return searchResults;
     }
 }
