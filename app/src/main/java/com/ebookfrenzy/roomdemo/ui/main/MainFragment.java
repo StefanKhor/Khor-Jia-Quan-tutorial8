@@ -25,6 +25,10 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     private ProductListAdapter adapter;
 
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +63,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 String name = binding.productName.getText().toString();
                 String quantity = binding.productQuantity.getText().toString();
-                if (!name.equals("") && !quantity.equals("")) {
+                if (!name.isEmpty() && !quantity.isEmpty()) {
                     Product product = new Product(name,
                             Integer.parseInt(quantity));
                     mViewModel.insertProduct(product);
@@ -116,7 +120,6 @@ public class MainFragment extends Fragment {
                     }
                 });
     }
-
     private void recyclerSetup() {
         adapter = new ProductListAdapter(R.layout.product_list_item);
         binding.productRecycler.setLayoutManager(
