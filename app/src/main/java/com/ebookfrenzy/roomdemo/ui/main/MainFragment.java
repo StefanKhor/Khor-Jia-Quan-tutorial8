@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ebookfrenzy.roomdemo.Product;
+import com.ebookfrenzy.roomdemo.R;
 import com.ebookfrenzy.roomdemo.databinding.FragmentMainBinding;
 
 import java.util.List;
 import java.util.Locale;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MainFragment extends Fragment {
     private MainViewModel mViewModel;
@@ -48,7 +50,7 @@ public class MainFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         listenerSetup();
         observerSetup();
-//        recyclerSetup();
+        recyclerSetup();
     }
 
     private void listenerSetup() {
@@ -114,4 +116,12 @@ public class MainFragment extends Fragment {
                     }
                 });
     }
+
+    private void recyclerSetup() {
+        adapter = new ProductListAdapter(R.layout.product_list_item);
+        binding.productRecycler.setLayoutManager(
+                new LinearLayoutManager(getContext()));
+        binding.productRecycler.setAdapter(adapter);
+    }
+
 }
