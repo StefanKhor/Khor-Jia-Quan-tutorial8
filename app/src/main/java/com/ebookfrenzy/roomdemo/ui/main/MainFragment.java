@@ -25,6 +25,7 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     private ProductListAdapter adapter;
 
+
     public static MainFragment newInstance() {
         return new MainFragment();
     }
