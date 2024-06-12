@@ -1,15 +1,22 @@
 package com.ebookfrenzy.roomdemo.ui.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.ebookfrenzy.roomdemo.Product;
 import com.ebookfrenzy.roomdemo.R;
@@ -25,7 +32,7 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     private ProductListAdapter adapter;
 
-
+    private Button helpButton;
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -33,8 +40,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
 
     @Nullable
     @Override
@@ -56,9 +63,17 @@ public class MainFragment extends Fragment {
         listenerSetup();
         observerSetup();
         recyclerSetup();
+
     }
 
     private void listenerSetup() {
+        binding.helpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/app-dev-tutorial8/home"));
+                startActivity(intent);
+            }
+        });
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
